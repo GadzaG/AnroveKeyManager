@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <ProjectReference Include="..\Shared.Kernel\Shared.Kernel.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation"/>
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
+      <PackageReference Include="Scrutor"/>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <PackageId>AnroveKeyManager.Core</PackageId>
+        <Version>0.0.1</Version>
+        <Authors>anrove</Authors>
+        <Company>anrove</Company>
+        <PackageDescription>Core</PackageDescription>
+        <RepositoryUrl>https://github.com/GadzaG/AnroveKeyManager</RepositoryUrl>
+    </PropertyGroup>
+
+
+
+</Project>

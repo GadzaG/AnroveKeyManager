@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="CSharpFunctionalExtensions"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>AnroveKeyManager.Kernel</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>anrove</Authors>
+    <Company>anrove</Company>
+    <PackageDescription>Kernel</PackageDescription>
+    <RepositoryUrl>https://github.com/GadzaG/AnroveKeyManager</RepositoryUrl>
+  </PropertyGroup>
+
+</Project>
