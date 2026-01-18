@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CSharpFunctionalExtensions" />
-        <PackageReference Include="anrovekeymanager.kernel"/>
+      <Folder Include="Products\Requests\" />
+      <Folder Include="Products\Responses\" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="AnroveKeyManager.Framework"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProductService.Core\ProductService.Core.csproj" />
+    <ProjectReference Include="..\ProductService.Infrastructure.Postgres\ProductService.Infrastructure.Postgres.csproj" />
+  </ItemGroup>
+
+
+</Project>
