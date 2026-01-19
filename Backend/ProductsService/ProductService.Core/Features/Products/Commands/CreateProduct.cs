@@ -48,10 +48,10 @@ public sealed class CreateProductHandler(
 {
     public async Task<Result<Guid, Error>> Handle(
         CreateProductCommand command,
-        CancellationToken cancellationToken = default)
+        CancellationToken ct = default)
     {
         // todo Изменить в Shared.Core cancellationToken на ct
-        ValidationResult validationResult = await validator.ValidateAsync(command, cancellationToken);
+        ValidationResult validationResult = await validator.ValidateAsync(command, ct);
         if (!validationResult.IsValid)
         {
             return validationResult.ToError();
@@ -60,7 +60,7 @@ public sealed class CreateProductHandler(
         Title title = Title.Create(command.Title).Value;
         Description description = Description.Create(command.Description).Value;
 
-        Result<Product, Error> createProduct = Product.Create(Guid.NewGuid(), command.UserId, title, description);
+        Result<Product, Error> createProduct = Product.Create(Guid.NewGuid(), Guid.Empty, title, description); // todo вот тут я изменил временно userId
 
         if (createProduct.IsFailure)
         {
@@ -68,13 +68,13 @@ public sealed class CreateProductHandler(
         }
 
         Product product = createProduct.Value;
-        Result<Guid, Error> create = await productsRepository.Add(product, cancellationToken);
+        Result<Guid, Error> create = await productsRepository.Add(product, ct);
         if (create.IsFailure)
         {
             return create.Error;
         }
 
-        UnitResult<Error> saveChanges = await transactionManager.SaveChangesAsync(cancellationToken);
+        UnitResult<Error> saveChanges = await transactionManager.SaveChangesAsync(ct);
         if (saveChanges.IsFailure)
         {
             return saveChanges.Error;
