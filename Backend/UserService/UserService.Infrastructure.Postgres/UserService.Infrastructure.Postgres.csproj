@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"/>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\UserService.Core\UserService.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Configurations\" />
+    </ItemGroup>
+
+</Project>

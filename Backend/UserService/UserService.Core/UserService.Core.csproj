@@ -1,9 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Folder Include="Database\" />
+  </ItemGroup>
 
-    <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AnroveKeyManager.Core" />
+    <PackageReference Include="AnroveKeyManager.Framework" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UserService.Domain\UserService.Domain.csproj" />
+  </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
 using ProductService.Core.Database;
 using ProductService.Domain.Products;
 using ProductService.Domain.ValueObjects;
@@ -44,16 +45,17 @@ public record CreateProductCommand(Guid UserId, string Title, string Description
 public sealed class CreateProductHandler(
     IProductsRepository productsRepository,
     ITransactionManager transactionManager,
-    IValidator<CreateProductCommand> validator) : ICommandHandler<Guid, CreateProductCommand>
+    IValidator<CreateProductCommand> validator,
+    ILogger<CreateProductHandler> logger) : ICommandHandler<Guid, CreateProductCommand>
 {
     public async Task<Result<Guid, Error>> Handle(
         CreateProductCommand command,
         CancellationToken ct = default)
     {
-        // todo Изменить в Shared.Core cancellationToken на ct
         ValidationResult validationResult = await validator.ValidateAsync(command, ct);
         if (!validationResult.IsValid)
         {
+            logger.LogWarning("Validation Failed");
             return validationResult.ToError();
         }
 

@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{E29CEF5E-46E6-4A41-BF99-294D5C50A953}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E29CEF5E-46E6-4A41-BF99-294D5C50A953}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Domain", "UserService.Domain\UserService.Domain.csproj", "{A5BFC1F5-E4B9-47E0-87E5-21A5EE0BBB3B}"
 EndProject
@@ -9,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Core", "UserService.Core\UserService.Core.csproj", "{A7D2FB19-0134-46C3-A297-0FE30588836B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Web", "UserService.Web\UserService.Web.csproj", "{E9827F0E-8ADB-41C6-8344-6BE54DEE89E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Infrastructure.Postgres", "UserService.Infrastructure.Postgres\UserService.Infrastructure.Postgres.csproj", "{96D6E884-999F-4F80-9264-FE0E9F4E7AE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.Infrastructure.Jwt", "UserService.Infrastructure.Jwt\UserService.Infrastructure.Jwt.csproj", "{7B3DCB01-95DD-4FB5-9801-DB8ADAD2C171}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,5 +37,17 @@ Global
 		{E9827F0E-8ADB-41C6-8344-6BE54DEE89E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9827F0E-8ADB-41C6-8344-6BE54DEE89E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9827F0E-8ADB-41C6-8344-6BE54DEE89E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96D6E884-999F-4F80-9264-FE0E9F4E7AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96D6E884-999F-4F80-9264-FE0E9F4E7AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96D6E884-999F-4F80-9264-FE0E9F4E7AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96D6E884-999F-4F80-9264-FE0E9F4E7AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B3DCB01-95DD-4FB5-9801-DB8ADAD2C171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B3DCB01-95DD-4FB5-9801-DB8ADAD2C171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B3DCB01-95DD-4FB5-9801-DB8ADAD2C171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B3DCB01-95DD-4FB5-9801-DB8ADAD2C171}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{96D6E884-999F-4F80-9264-FE0E9F4E7AE1} = {1C9F438A-DAC8-4F12-A533-A01487E3C455}
+		{7B3DCB01-95DD-4FB5-9801-DB8ADAD2C171} = {1C9F438A-DAC8-4F12-A533-A01487E3C455}
 	EndGlobalSection
 EndGlobal

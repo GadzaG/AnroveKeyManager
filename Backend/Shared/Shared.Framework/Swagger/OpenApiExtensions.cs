@@ -27,7 +27,6 @@ public static class OpenApiExtensions
                 Extensions = null
             });
         });
-
         return services;
     }
 }
