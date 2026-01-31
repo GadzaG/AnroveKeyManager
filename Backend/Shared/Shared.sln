@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Framework", "Shared.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Kernel", "Shared.Kernel\Shared.Kernel.csproj", "{A8C62637-CBB1-40D2-801F-D7462564EF3C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{C7B3517E-675A-4E3E-88BA-E9D013D5A6C7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7B3517E-675A-4E3E-88BA-E9D013D5A6C7}"
 	ProjectSection(SolutionItems) = preProject
 					.editorconfig = .editorconfig
 		Directory.Packages.props = Directory.Packages.props

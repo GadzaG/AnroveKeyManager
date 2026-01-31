@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
+    <ItemGroup>
+      <PackageReference Include="anrovekeymanager.core" />
+      <PackageReference Include="AnroveKeyManager.Framework" />
+    </ItemGroup>
+  
+    <ItemGroup>
+      <Folder Include="Features\Queries\" />
+    </ItemGroup>
+  
+    <ItemGroup>
+      <ProjectReference Include="..\Products.Domain\Products.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,6 @@
+@KeyManager.Web_HostAddress = http://localhost:5115
+
+GET {{KeyManager.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
