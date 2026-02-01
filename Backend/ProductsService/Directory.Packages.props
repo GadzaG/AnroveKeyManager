@@ -12,6 +12,7 @@
         <PackageVersion Include="AnroveKeyManager.Core" Version="0.0.3" />
         <PackageVersion Include="AnroveKeyManager.Framework" Version="0.0.2" />
         <PackageVersion Include="anrovekeymanager.kernel" Version="0.0.1" />
+      
         
         <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
         <PackageVersion Include="coverlet.collector" Version="6.0.2" />

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Shared.Core.Abstractions;
@@ -47,7 +48,7 @@ public sealed class TempEndpoint : IEndpoint
                 ClaimsPrincipal user,
                 [FromServices] UserManager<User> manager) =>
             {
-                var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+                var userIdClaim = user.FindFirst("Id");
 
                 if (userIdClaim is null)
                     return Results.Unauthorized();
@@ -56,17 +57,16 @@ public sealed class TempEndpoint : IEndpoint
                 return Results.Ok("bruh");
 
                 // var userId = Guid.Parse(userIdClaim.Value);
-                //
-                // var userEntity = await manager.FindByIdAsync(userIdClaim.Value);
-                //
-                // if (userEntity is null)
-                //     return Results.NotFound();
-                //
-                // return Results.Ok(new
-                // {
-                //     userEntity.Id,
-                //     userEntity.Email,
-                // });
+                /*User? userEntity = await manager.FindByIdAsync(userId.ToString());
+
+                if (userEntity is null)
+                    return Results.NotFound();
+
+                return Results.Ok(new
+                {
+                    userEntity.Id,
+                    userEntity.Email,
+                });*/
             })
             .RequireAuthorization();
     }
@@ -86,4 +86,53 @@ public sealed class TempHandler(UserManager<User> userManager, ILogger<TempHandl
         logger.LogInformation("привет");
         return string.IsNullOrWhiteSpace(user.Email) ? "пусто" : user.Email;
     }
+}
+
+public static class ClaimBindingSource
+{
+    public static readonly BindingSource Claim = new(
+        id: "Claim", // уникальный ID
+        displayName: "Claim", // имя для отладки
+        isGreedy: false,
+        isFromRequest: true);
+}
+
+public sealed class ClaimValueProvider(BindingSource bindingSource, ClaimsPrincipal user)
+    : BindingSourceValueProvider(bindingSource)
+{
+    public override bool ContainsPrefix(string prefix)
+        => user.HasClaim(c => c.Type == prefix);
+
+    public override ValueProviderResult GetValue(string key)
+    {
+        string? raw = user.FindFirst(key)?.Value;
+        if (raw is null)
+            return ValueProviderResult.None;
+
+        // если модель Guid или Nullable<Guid> — вернём нормализованную строку
+        return Guid.TryParse(raw, out var guid)
+            ? new ValueProviderResult(guid.ToString())
+            : new ValueProviderResult(raw);
+    }
+}
+
+public sealed class ClaimValueProviderFactory : IValueProviderFactory
+{
+    public Task CreateValueProviderAsync(ValueProviderFactoryContext context)
+    {
+        var user = context.ActionContext.HttpContext.User;
+        context.ValueProviders.Add(
+            new ClaimValueProvider(ClaimBindingSource.Claim, user));
+
+        return Task.CompletedTask;
+    }
+}
+
+[AttributeUsage(AttributeTargets.Parameter)]
+public sealed class FromClaimsAttribute(string name) : Attribute, IBindingSourceMetadata, IModelNameProvider
+{
+    public BindingSource BindingSource => ClaimBindingSource.Claim;
+
+    // тип claim’а
+    public string Name { get; } = name;
 }

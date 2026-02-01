@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>AnroveKeyManager.Framework</PackageId>
-    <Version>0.0.2</Version>
+    <Version>0.0.8</Version>
     <Authors>anrove</Authors>
     <Company>anrove</Company>
     <PackageDescription>Framework</PackageDescription>

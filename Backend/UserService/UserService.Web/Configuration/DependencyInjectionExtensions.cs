@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Shared.Framework.Auth;
 using Shared.Framework.Endpoints;
 using Shared.Framework.Logging;
 using Shared.Framework.Swagger;
@@ -14,6 +17,7 @@ public static class DependencyInjectionExtensions
         services.AddCors();
 
         services
+            .AddAuth(configuration)
             .AddSerilogLogging(configuration, "UserService")
             .AddOpenApiSpec("UserService", "v1")
             .AddEndpoints(typeof(DependencyInjectionCoreExtensions).Assembly);

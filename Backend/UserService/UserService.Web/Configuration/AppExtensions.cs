@@ -1,6 +1,8 @@
 using Serilog;
 using Shared.Framework.Endpoints;
 using Shared.Framework.Middlewares;
+using Shared.Framework.Swagger;
+using UserService.Infrastructure.Postgres;
 
 namespace UserService.Web.Configuration;
 
@@ -32,8 +34,13 @@ public static class AppExtensions
             options.SwaggerEndpoint("/openapi/v1.json", "User Service V1");
         });
 
-        app.MapEndpoints();
+        app.UseAuthentication();  // Проверяет токен/куки
+        app.UseAuthorization();   // Проверяет права доступа
 
+        app.MapEndpoints();
+        /*IServiceScope scope = app.Services.CreateScope();
+        UserServiceDbContext context = scope.ServiceProvider.GetRequiredService<UserServiceDbContext>();
+        context.Database.EnsureCreated();*/
         return app;
     }
 }

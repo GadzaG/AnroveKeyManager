@@ -3,6 +3,13 @@
 
     <ItemGroup>
       <PackageReference Include="AnroveKeyManager.Framework"/>
+      <PackageReference Remove="Microsoft.EntityFrameworkCore.Design" />
+    </ItemGroup>
+  
+
+    <ItemGroup>
+      <ProjectReference Include="..\Products\Products.Core\Products.Core.csproj" />
+      <ProjectReference Include="..\Products\Products.DependencyInjection\Products.DependencyInjection.csproj" />
     </ItemGroup>
 
 </Project>

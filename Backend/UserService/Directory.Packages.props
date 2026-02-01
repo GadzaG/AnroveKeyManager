@@ -9,9 +9,9 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
-    <PackageVersion Include="AnroveKeyManager.Core" Version="0.0.2" />
-    <PackageVersion Include="AnroveKeyManager.Framework" Version="0.0.1" />
-    <PackageVersion Include="anrovekeymanager.kernel" Version="0.0.1" />
+    <PackageVersion Include="AnroveKeyManager.Core" Version="0.0.3" />
+    <PackageVersion Include="AnroveKeyManager.Framework" Version="0.0.7" />
+    <PackageVersion Include="AnroveKeyManager.Kernel" Version="0.0.1" />
     <PackageVersion Include="Serilog" Version="4.3.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />

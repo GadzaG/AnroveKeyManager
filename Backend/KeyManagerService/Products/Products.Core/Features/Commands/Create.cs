@@ -1,7 +1,9 @@
+using System.Security.Claims;
 using CSharpFunctionalExtensions;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
@@ -35,11 +37,28 @@ public sealed class CreateProductEndpoint : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("/products", async Task<EndpointResult<Guid>> (
-            [FromBody] CreateProductCommand request,
+            [FromBody] CreateProductRequest request,
             [FromServices] CreateProductHandler handler,
-            CancellationToken cancellationToken) => await handler.Handle(request, cancellationToken));
+            ClaimsPrincipal user,
+            CancellationToken cancellationToken) =>
+        {
+            // Получаем Id пользователя из claims
+            Claim? userIdClaim = user.FindFirst("Id");
+
+            if (userIdClaim is null)
+                return new EndpointResult<Guid>(Error.Authorization("auth.error", "user_unauthorized"));
+
+            var userId = Guid.Parse(userIdClaim.Value);
+
+            var command = new CreateProductCommand(userId, request.Title, request.Description);
+
+            return await handler.Handle(command, cancellationToken);
+
+        }).RequireAuthorization();
     }
 }
+
+public record CreateProductRequest(string Title, string Description);
 
 public record CreateProductCommand(Guid UserId, string Title, string Description) : ICommand;
 
@@ -77,7 +96,7 @@ public sealed class CreateProductHandler(
             return create.Error;
         }
 
-        UnitResult<Error> saveChanges = await transactionManager.SaveChangesAsync();
+        UnitResult<Error> saveChanges = await transactionManager.SaveChangesAsync(ct);
         if (saveChanges.IsFailure)
         {
             return saveChanges.Error;

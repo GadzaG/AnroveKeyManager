@@ -25,7 +25,7 @@ try
 
     builder.Services.AddConfiguration(builder.Configuration);
 
-    builder.Services.AddAuthentication(options =>
+    /*builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -46,7 +46,7 @@ try
             };
         });
 
-    builder.Services.AddAuthorization();
+    builder.Services.AddAuthorization();*/
 
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //         .AddJwtBearer(options =>
@@ -73,9 +73,6 @@ try
     WebApplication app = builder.Build();
 
     app.Configure();
-
-    app.UseAuthentication();  // Проверяет токен/куки
-    app.UseAuthorization();   // Проверяет права доступа
 
     app.Run();
 }

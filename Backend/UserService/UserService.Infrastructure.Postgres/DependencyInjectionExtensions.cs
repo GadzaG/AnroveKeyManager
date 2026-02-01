@@ -54,7 +54,7 @@ public static class DependencyInjectionExtensions
         });*/
 
         // services.AddScoped<ITransactionManager, TransactionManager>();
-        services.AddIdentity<User, IdentityRole<Guid>>()
+        services.AddIdentityCore<User>()
             .AddEntityFrameworkStores<UserServiceDbContext>()
             .AddDefaultTokenProviders();
 

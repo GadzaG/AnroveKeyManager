@@ -22,17 +22,14 @@ public static class AuthExtensions
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-
-// #pragma warning disable CA5404
-//                     ValidateAudience = false,
-// #pragma warning restore CA5404
+                    ValidateAudience = true,
+                    ValidAudience = authOptions.Audience,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = authOptions.Issuer,

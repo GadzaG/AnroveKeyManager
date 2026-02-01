@@ -1,3 +1,41 @@
+using Serilog;
+using Shared.Framework.Endpoints;
+using Shared.Framework.Middlewares;
+
 namespace KeyManager.Web.Configuration;
 
-public class AppExtensions;
+public static class AppExtensions
+{
+    public static IApplicationBuilder Configure(this WebApplication app)
+    {
+        app.UseCors(builder =>
+        {
+            builder.WithOrigins(
+                    "http://localhost:3000",
+                    "http://localhost:3001",
+                    "http://localhost",
+                    "http://frontend:3000")
+                .AllowCredentials()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+
+        app.UseExceptionMiddleware();
+        app.UseRequestCorrelationId();
+        app.UseSerilogRequestLogging();
+
+        app.MapOpenApi();
+
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "KeyManagerService V1");
+        });
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.MapEndpoints();
+
+        return app;
+    }
+}

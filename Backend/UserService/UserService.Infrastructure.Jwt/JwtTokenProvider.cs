@@ -5,6 +5,7 @@ using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Shared.Framework.Auth;
 using Shared.Kernel;
 using UserService.Core.Jwt;
 using UserService.Domain.Users;
@@ -20,32 +21,22 @@ public static class CustomClaims
     public const string PERMISSION = "Permission";
 }
 
-public class JwtOptions
+public class JwtTokenProvider(IOptions<AuthOptions> options) : ITokenProvider
 {
-    public const string SECTION_NAME = "JwtOptions";
-
-    public string SecretKey { get; init; } = string.Empty;
-
-    public int TokenLifeTimeInMinutes { get; init; } = 5;
-
-    public string Issuer { get; init; } = string.Empty;
-}
-
-public class JwtTokenProvider(IOptions<JwtOptions> options) : ITokenProvider
-{
-    private readonly JwtOptions _jwtOptions = options.Value;
+    private readonly AuthOptions _authOptions = options.Value;
 
     public Result<string, Error> GenerateAccessToken(User user, CancellationToken ct = default)
     {
-        var claims = new List<Claim> { new(ClaimTypes.NameIdentifier, user.Id.ToString()), };
+        var claims = new List<Claim> { new("Id", user.Id.ToString()), };
 
-        var ssk = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey));
+        var ssk = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authOptions.SecretKey));
         var signingCredentials = new SigningCredentials(ssk, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            issuer: _jwtOptions.Issuer,
+            issuer: _authOptions.Issuer,
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(_jwtOptions.TokenLifeTimeInMinutes),
+            audience: _authOptions.Audience,
+            expires: DateTime.UtcNow.AddMinutes(_authOptions.TokenLifeTimeInMinutes),
             signingCredentials: signingCredentials);
 
         string? stringToken = new JwtSecurityTokenHandler().WriteToken(token);
